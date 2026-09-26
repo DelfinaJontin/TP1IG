@@ -1,0 +1,18 @@
+:root{
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+    --bg:#f6f5f1; --card:#ffffff; 
+    --text:#1f1f1d; --sub:#6b6a64; --border:#e3e1d9;
+    --dados:#0f6e56; --dados-bg:#e1f5ee;
+    --cartas:#534ab7; --cartas-bg:#eeedfe;
+    --trivia:#993c1d; --trivia-bg:#faece7;
+  }
+:root:not([data-theme="light"]){
+      --bg:#171715; --card:#232320; --text:#f0efe9; --sub:#a6a49a; --border:#38372f;
+      --dados-bg:#0a3a2c; --cartas-bg:#231f4a; --trivia-bg:#3a1f10;
+    }
+:root[data-theme="dark"]{
+    --bg:#171715; --card:#232320; --text:#f0efe9; --sub:#a6a49a; --border:#38372f;
+    --dados-bg:#0a3a2c; --cartas-bg:#231f4a; --trivia-bg:#3a1f10;
+  }
