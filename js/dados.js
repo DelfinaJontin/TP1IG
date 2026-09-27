@@ -22,6 +22,7 @@ const els = {
   msg: document.getElementById('msg'),
   btnRoll: document.getElementById('btnRoll'),
   btnBank: document.getElementById('btnBank'),
+  btnRestart: document.getElementById('btnRestart'),
   history: document.getElementById('history'),
 };
 function addHistoryEntry(player, type, points, totalAfter) {
@@ -243,6 +244,7 @@ function checkWinOrNext(nextPlayer) {
     els.btnRoll.disabled = true;
     els.btnBank.disabled = true;
     els.diceRow.innerHTML = '';
+    els.btnRestart.style.display = 'inline-block';
     return;
   }
   startTurnUI(nextPlayer);
@@ -305,3 +307,20 @@ function computerTurnStep() {
   }, 700);
 }
 updateScoreCards();
+
+els.btnRestart.addEventListener('click', () => {
+  state.playerScore = 0;
+  state.computerScore = 0;
+  state.currentPlayer = 'player';
+  state.diceAvailable = 6;
+  state.currentRoll = [];
+  state.selected = [];
+  state.turnScore = 0;
+  state.gameOver = false;
+  state.turnNumber = 0;
+
+  els.history.innerHTML = '';
+  els.btnRestart.style.display = 'none';
+  updateScoreCards();
+  startTurnUI('player');
+});
