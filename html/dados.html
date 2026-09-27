@@ -5,43 +5,56 @@
 <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-<div class="zona-bar">zona juegos</div>
+<div class="wrap">
+
+  <div class="zona-bar">zona juegos</div>
 
 <nav class="nav">
   <span class="nav-item active">Inicio</span>
   <span class="nav-item">10000</span>
   <span class="nav-item">Blackjack</span>
 </nav>
-  <div class="wrap">
-  <h1>10000 - vos vs. la computadora</h1>
+  
+    <h1>10000 - vos vs. la computadora</h1>
 
-  <div class="scores">
-    <div class="score-card" id="cardPlayer">
-      <p class="label">Vos</p>
-      <p class="value" id="playerScore">0</p>
+<div class="columns">
+
+    <div class="col">
+      <div class="scores">
+        <div class="score-card" id="cardPlayer">
+          <p class="label">Vos</p>
+          <p class="value" id="playerScore">0</p>
+        </div>
+        <div class="score-card" id="cardComputer">
+          <p class="label">Computadora</p>
+          <p class="value" id="computerScore">0</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p>Historial de turnos</p>
+        <div id="history" style="display:flex;flex-direction:column-reverse;gap:6px;max-height:220px;overflow-y:auto;"></div>
+      </div>
     </div>
-    <div class="score-card" id="cardComputer">
-      <p class="label">Computadora</p>
-      <p class="value" id="computerScore">0</p>
+
+    <div class="col">
+      <div class="panel">
+        <div class="turn-info">
+          <span>Turno: <b id="turnLabel">Vos</b></span>
+          <span>Acumulado del turno: <b id="turnScoreLabel">0</b></span>
+        </div>
+        <div class="dice-row" id="diceRow"></div>
+        <div class="msg" id="msg">Presioná "Tirar dados" para empezar.</div>
+        <div class="actions">
+          <button class="primary" id="btnRoll">Tirar dados</button>
+          <button id="btnBank" disabled="">Plantarse</button>
+        </div>
+      </div>
     </div>
+
   </div>
-<div class="panel">
-    <div class="turn-info">
-      <span>Turno: <b id="turnLabel">Vos</b></span>
-      <span>Acumulado del turno: <b id="turnScoreLabel">0</b></span>
-    </div>
-    <div class="dice-row" id="diceRow"></div>
-    <div class="msg" id="msg">Presioná "Tirar dados" para empezar.</div>
-    <div class="actions">
-      <button class="primary" id="btnRoll">Tirar dados</button>
-      <button id="btnBank" disabled="">Plantarse</button>
-    </div>
-  </div>
-  <div class="panel">
-  <p>Historial de turnos</p>
-  <div id="history" style="display:flex;flex-direction:column-reverse;gap:6px;max-height:220px;overflow-y:auto;"></div>
-</div>
- <div class="rules-toggle"><a id="rulesLink">Ver tabla de puntajes</a></div>
+ 
+<div class="rules-toggle"><a id="rulesLink">Ver tabla de puntajes</a></div>
   <div class="rules" id="rulesBox">
     <table>
       <tbody><tr><td>Un 1 suelto</td><td>100</td></tr>
@@ -58,6 +71,13 @@
     </tbody></table>
     <p>Si en una tirada ningún dado puntúa, es Farkle: perdés lo acumulado en el turno.</p>
   </div>
+
+<div class="banner-goal">el que llega a 10.000 gana!</div>
+
+<div class="guide-link"><a href="#">guia de juego</a></div>
+
+<footer class="site-footer">tp1 2026</footer>
+
 </div>
 <script src="../js/dados.js"></script>
 </body>
