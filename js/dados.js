@@ -56,3 +56,31 @@ function pipPositions(value) {
   };
   return positions[value] || [];
 }
+function scoreSubset(values) {
+  const counts = [0,0,0,0,0,0,0];
+  values.forEach(v => counts[v]++);
+  const n = values.length;
+
+  if (n === 6) {
+    if (counts.slice(1).every(c => c === 1)) return { valid: true, score: 1500 };
+    const pairCount = counts.slice(1).filter(c => c === 2).length;
+    if (pairCount === 3) return { valid: true, score: 750 };
+  }
+
+  let score = 0;
+  const c = counts.slice();
+  for (let v = 1; v <= 6; v++) {
+    if (c[v] >= 3) {
+      const base = v === 1 ? 1000 : v * 100;
+      const extra = c[v] - 3;
+      score += base * Math.pow(2, extra);
+      c[v] = 0;
+    }
+  }
+  score += c[1] * 100; c[1] = 0;
+  score += c[5] * 50; c[5] = 0;
+
+  const leftover = c[2] + c[3] + c[4] + c[6];
+  if (leftover > 0) return { valid: false, score: 0 };
+  return { valid: true, score };
+}
