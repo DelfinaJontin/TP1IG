@@ -155,3 +155,60 @@ function toggleSelect(i) {
   renderDice();
   updateButtonsForSelection();
 }
+function updateButtonsForSelection() {
+  if (state.selected.length === 0) {
+    els.msg.textContent = 'Elegí uno o más dados que puntúen para apartarlos.';
+    els.msg.className = 'msg';
+    els.btnRoll.disabled = true;
+    els.btnBank.disabled = true;
+    return;
+  }
+  const values = state.selected.map(i => state.currentRoll[i]);
+  const result = scoreSubset(values);
+  if (!result.valid) {
+    els.msg.textContent = 'Esa combinación no puntúa. Elegí otra selección.';
+    els.msg.className = 'msg farkle';
+    els.btnRoll.disabled = true;
+    els.btnBank.disabled = true;
+  } else {
+    els.msg.textContent = `Esa selección suma ${result.score} puntos. Confirmá tirando de nuevo o plantándote.`;
+    els.msg.className = 'msg';
+    els.btnRoll.disabled = false;
+    els.btnBank.disabled = false;
+  }
+}
+
+function confirmSelection() {
+  const values = state.selected.map(i => state.currentRoll[i]);
+  const result = scoreSubset(values);
+  state.turnScore += result.score;
+  state.diceAvailable -= state.selected.length;
+  if (state.diceAvailable === 0) state.diceAvailable = 6; // hot dice
+  state.selected = [];
+  state.currentRoll = [];
+  els.turnScoreLabel.textContent = state.turnScore;
+}
+
+function startTurnUI(player) {
+  state.turnNumber++;
+  state.currentPlayer = player;
+  state.diceAvailable = 6;
+  state.turnScore = 0;
+  state.currentRoll = [];
+  state.selected = [];
+  els.turnScoreLabel.textContent = 0;
+  els.turnLabel.textContent = player === 'player' ? 'Vos' : 'Computadora';
+  updateScoreCards();
+  els.btnBank.disabled = true;
+  els.btnRoll.disabled = false;
+  els.diceRow.innerHTML = '';
+  if (player === 'player') {
+    els.msg.textContent = 'Presioná "Tirar dados" para empezar tu turno.';
+    els.msg.className = 'msg';
+  } else {
+    els.msg.textContent = 'Turno de la computadora...';
+    els.msg.className = 'msg';
+    els.btnRoll.disabled = true;
+    setTimeout(computerTurnStep, 700);
+  }
+}
