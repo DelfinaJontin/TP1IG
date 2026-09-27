@@ -84,3 +84,74 @@ function scoreSubset(values) {
   if (leftover > 0) return { valid: false, score: 0 };
   return { valid: true, score };
 }
+function hasAnyScore(values) {
+  if (values.includes(1) || values.includes(5)) return true;
+  const counts = [0,0,0,0,0,0,0];
+  values.forEach(v => counts[v]++);
+  if (counts.some(c => c >= 3)) return true;
+  if (values.length === 6) {
+    if (counts.slice(1).every(c => c === 1)) return true;
+    if (counts.slice(1).filter(c => c === 2).length === 3) return true;
+  }
+  return false;
+}
+function autoSelectAll(values) {
+  const counts = [0,0,0,0,0,0,0];
+  values.forEach(v => counts[v]++);
+
+  if (values.length === 6) {
+    if (counts.slice(1).every(c => c === 1)) return values.map((_, i) => i);
+    if (counts.slice(1).filter(c => c === 2).length === 3) return values.map((_, i) => i);
+  }
+
+  const takeIdx = [];
+  const c = counts.slice();
+  for (let v = 1; v <= 6; v++) {
+    if (c[v] >= 3) {
+      let toTake = c[v];
+      values.forEach((val, i) => { if (val === v && toTake > 0) { takeIdx.push(i); toTake--; } });
+      c[v] = 0;
+    }
+  }
+  values.forEach((val, i) => {
+    if ((val === 1 || val === 5) && !takeIdx.includes(i)) takeIdx.push(i);
+  });
+  return takeIdx;
+}
+
+function updateScoreCards() {
+  els.playerScore.textContent = state.playerScore;
+  els.computerScore.textContent = state.computerScore;
+  els.cardPlayer.classList.toggle('active', state.currentPlayer === 'player');
+  els.cardComputer.classList.toggle('active', state.currentPlayer === 'computer');
+}
+
+function renderDice() {
+  els.diceRow.innerHTML = '';
+  state.currentRoll.forEach((val, i) => {
+       const d = document.createElement('div');
+    d.className = 'die';
+    pipPositions(val).forEach(([row, col]) => {
+      const pip = document.createElement('span');
+      pip.className = 'pip';
+      pip.style.gridRow = row;
+      pip.style.gridColumn = col;
+      d.appendChild(pip);
+    });
+    if (state.selected.includes(i)) d.classList.add('selected');
+    if (state.currentPlayer === 'player' && !state.gameOver) {
+      d.addEventListener('click', () => toggleSelect(i));
+    } else {
+      d.classList.add('locked');
+    }
+    els.diceRow.appendChild(d);
+  });
+}
+
+function toggleSelect(i) {
+  const idx = state.selected.indexOf(i);
+  if (idx >= 0) state.selected.splice(idx, 1);
+  else state.selected.push(i);
+  renderDice();
+  updateButtonsForSelection();
+}
