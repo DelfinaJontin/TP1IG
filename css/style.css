@@ -64,3 +64,24 @@
   .cartas{--accent:var(--cartas);--accent-bg:var(--cartas-bg);}
   .trivia{--accent:var(--trivia);--accent-bg:var(--trivia-bg);}
   footer{text-align:center;color:var(--sub);font-size:12px;padding:24px;padding-bottom:calc(24px + env(safe-area-inset-bottom,0px));}
+
+  .dice-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 16px 0; min-height: 60px; }
+.die {
+  width: 52px; height: 52px; border-radius: 10px; border: 1px solid var(--border);
+  background: var(--card); cursor: pointer; user-select: none;
+  transition: transform 0.1s;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  padding: 8px;
+}
+.die .pip {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--text);
+  align-self: center; justify-self: center;
+}
+.die.kept { background: var(--success-bg); border-color: var(--success); cursor: default; }
+.die.kept .pip { background: var(--success); }
+.die.selected { background: var(--accent-bg); border-color: var(--accent); transform: translateY(-4px); }
+.die.selected .pip { background: var(--accent); }
+.die.locked { opacity: 0.4; cursor: default; }
