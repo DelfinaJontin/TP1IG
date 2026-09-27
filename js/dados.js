@@ -212,3 +212,38 @@ function startTurnUI(player) {
     setTimeout(computerTurnStep, 700);
   }
 }
+
+function endTurnFarkle(player) {
+  els.msg.textContent = '¡Farkle! Se perdieron los puntos de este turno.';
+  els.msg.className = 'msg farkle';
+  els.btnRoll.disabled = true;
+  els.btnBank.disabled = true;
+  const totalAfter = player === 'player' ? state.playerScore : state.computerScore;
+  addHistoryEntry(player, 'farkle', state.turnScore, totalAfter);
+  setTimeout(() => {
+    checkWinOrNext(player === 'player' ? 'computer' : 'player');
+  }, 1400);
+}
+
+function bankAndEndTurn(player) {
+  if (player === 'player') state.playerScore += state.turnScore;
+  else state.computerScore += state.turnScore;
+  updateScoreCards();
+  const totalAfter = player === 'player' ? state.playerScore : state.computerScore;
+  addHistoryEntry(player, 'bank', state.turnScore, totalAfter);
+  checkWinOrNext(player === 'player' ? 'computer' : 'player');
+}
+
+function checkWinOrNext(nextPlayer) {
+  if (state.playerScore >= 10000 || state.computerScore >= 10000) {
+    state.gameOver = true;
+    const winner = state.playerScore >= 10000 ? 'Vos ganaste' : 'Ganó la computadora';
+    els.msg.textContent = `${winner} con ${state.playerScore >= 10000 ? state.playerScore : state.computerScore} puntos.`;
+    els.msg.className = 'msg win';
+    els.btnRoll.disabled = true;
+    els.btnBank.disabled = true;
+    els.diceRow.innerHTML = '';
+    return;
+  }
+  startTurnUI(nextPlayer);
+}
