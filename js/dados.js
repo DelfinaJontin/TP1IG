@@ -247,3 +247,61 @@ function checkWinOrNext(nextPlayer) {
   }
   startTurnUI(nextPlayer);
 }
+els.btnRoll.addEventListener('click', () => {
+  if (state.selected.length > 0) confirmSelection();
+  const roll = rollDice(state.diceAvailable);
+  state.currentRoll = roll;
+  state.selected = [];
+  renderDice();
+  els.btnBank.disabled = true;
+  els.btnRoll.disabled = true;
+
+  if (!hasAnyScore(roll)) {
+    endTurnFarkle('player');
+    return;
+  }
+  els.msg.textContent = 'Elegí uno o más dados que puntúen para apartarlos.';
+  els.msg.className = 'msg';
+});
+
+els.btnBank.addEventListener('click', () => {
+  if (state.selected.length > 0) confirmSelection();
+  bankAndEndTurn('player');
+});
+
+function computerTurnStep() {
+  const roll = rollDice(state.diceAvailable);
+  state.currentRoll = roll;
+  renderDice();
+
+  if (!hasAnyScore(roll)) {
+    endTurnFarkle('computer');
+    return;
+  }
+
+  const takeIdx = autoSelectAll(roll);
+  state.selected = takeIdx;
+  renderDice();
+  const values = takeIdx.map(i => roll[i]);
+  const result = scoreSubset(values);
+
+  setTimeout(() => {
+    state.turnScore += result.score;
+    state.diceAvailable -= takeIdx.length;
+    if (state.diceAvailable === 0) state.diceAvailable = 6;
+    els.turnScoreLabel.textContent = state.turnScore;
+    state.selected = [];
+    state.currentRoll = [];
+    renderDice();
+
+    const shouldContinue = state.turnScore < 300 && state.diceAvailable > 0;
+    if (shouldContinue) {
+      els.msg.textContent = `Computadora suma ${result.score}, sigue tirando...`;
+      setTimeout(computerTurnStep, 900);
+    } else {
+      els.msg.textContent = `Computadora suma ${result.score} y se planta.`;
+      setTimeout(() => bankAndEndTurn('computer'), 900);
+    }
+  }, 700);
+}
+updateScoreCards();
