@@ -948,3 +948,11 @@ main.puntajes-main {
 @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
 }
+
+/* TRIVIA multiple choice: las opciones en columna */
+#answers { flex-direction: column; }
+#answers .answer-btn { width: 100%; text-align: left; }
+#answers .answer-btn.correct { background: var(--amarillo); opacity: 1; }
+#answers .answer-btn.wrong { background: var(--rojo); color: #fff; opacity: 1; }
+#feedback.ok { color: var(--tinta); }
+#feedback.fail { color: var(--rojo); }
