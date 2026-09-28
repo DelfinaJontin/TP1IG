@@ -8,8 +8,9 @@
     </head>
     <body>
         <div class="wrap">
-          <p style="text-align: center; margin-bottom: 12px;">
-          <a href="../index.html" class="back-link">Volver al menú</a>
+          <p class="back-row">
+            <a href="../index.html" class="back-link">&larr; Volver al menú</a>
+        </p>
           </p>
 
     <h1>BlackJack - vos vs dealer </h1>
@@ -36,16 +37,16 @@
                 <p class="hand-label">Vos</p>
                 <p class="hand-total" id="playerTotal">-</p>
                 <div class="hand" id="playerHand"></div>
-                <p class="ace-hint" id="aceHint" style="display: none;">Toca un As para elejir si vale 1 u 11.</p>
+                 <p class="ace-hint is-hidden" id="aceHint">Tocá un As para elegir si vale 1 u 11.</p>
         </div>
 
         <div class="msg" id="msg"> Ingresa tu apuesta para comenzar la mano.</div>
            
         <div class="bet-row" id="betRow">
                 <label for="betInput" class="visually-hidden">Monto de la apuesta.</label>
-                <input type="numbre" id="betInput min="1" value="10">
-                <button type="button" class="primary btn-grow" id="btnApostar">Apostar.</button>
-        </div>
+                <input type="number" id="betInput" min="1" value="10">
+                <button type="button" class="primary btn-grow" id="btnApostar">Apostar</button>
+         </div>
             
         <div class="actions is-hidden" id="playActions">
                 <button type="button" class="primary" id="btnHit">Pedir carta.</button>
@@ -59,8 +60,9 @@
         </div>
     </div>
 
-    <div class="guia-cartas"><a href="../html/instcartas.html">guia de juego</a></div>
-    
+    <div class="guia-cartas"><a href="../html/instcartas.html">Guía de juego</a></div>
+
+</div>
     <script src="../js/script.js"></script>
     </body>
 </html>
