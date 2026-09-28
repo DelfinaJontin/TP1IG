@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+        <title>Puntajes - zona juegos</title>
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+
+    <body class="pagina-puntajes">
+        <div class="wrap">
+            <div class="zona-bar">Zona Juegos</div>
+            <nav class="nav">
+                <a class="nav-item" href="../index.html">Inicio</a>
+                <a class="nav-item" href="dados.html">10000</a>
+                <a class="nav-item" href="cartas.html">Blackjack</a>
+                <a class="nav-item" href="api.html">Trivia</a>
+                <a class="nav-item active" href="puntajes.html">Puntajes</a> 
+            </nav>
+            <main class="puntajes-main">
+                <h1>Tabla de records</h1>
+                <p class="puntajes-intro">Los 5 mejores puntajes de cada juego. Se guardan en este navegador.</p>
+
+                <div class="records-grid">
+
+                    <section class="panel records-card dados">
+                        <h2>Trivia</h2>
+                        <p class="label">Más aciertos</p>
+                        <p class="records-best" id="best-trivia">-</p>
+                        <div id="records-trivia"></div>
+                    </section>
+                </div>
+
+                <div class="records-acciones">
+                    <button type="button" id="btnBorrar">Borrar todos los récords</button>
+                </div>
+            </main>
+            <footer class="site-footer">tp1 2026</footer>
+        </div>
+        <script src="../js/records.js"></script>
+    <script src="../js/puntajes.js"></script>
+</body>
+</html>
