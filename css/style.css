@@ -684,20 +684,6 @@ body:has(.hero) > footer {
 /* =========================================================
    cartas.html
    ========================================================= */
-.back-row {
-    text-align: center;
-    margin: 16px 0 4px;
-}
-   /* CARTAS: el enlace "Volver al menú". */
-a.back-link {
-    color: var(--page-ink);
-    font-size: 14px;
-    font-weight: 500;
-    text-decoration: underline;
-    text-decoration-color: currentColor;
-    text-decoration-thickness: 3px;
-    text-underline-offset: 4px;
-}
  /* CARTAS: cada zona de mano (la del Dealer y la tuya). */
 .hand-block {
     padding-bottom: 14px;
