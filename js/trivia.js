@@ -1,11 +1,11 @@
 const API_URL = 'https://opentdb.com/api.php?amount=10&category=11&difficulty=medium&type=multiple&encode=url3986';
-const TIME_PER_QUESTION = 10; // segundos
+const TIME_PER_QUESTION = 20; // segundos por pregunta: cambiá este número
 
 const state = {
   questions: [],
   currentIndex: 0,
-  playerScore: 0,
-  computerScore: 0,
+  playerScore: 0, // aciertos
+  wrongScore: 0,  // errores (incluye tiempo agotado)
   answered: false,
   gameOver: false,
   timeLeft: TIME_PER_QUESTION,
@@ -14,7 +14,7 @@ const state = {
 
 const els = {
   playerScore: document.getElementById('playerScore'),
-  computerScore: document.getElementById('computerScore'),
+  wrongScore: document.getElementById('wrongScore'),
   questionMeta: document.getElementById('questionMeta'),
   questionText: document.getElementById('questionText'),
   answers: document.getElementById('answers'),
@@ -26,6 +26,7 @@ function decode(str) {
   return decodeURIComponent(str);
 }
 
+// Fisher-Yates
 function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -55,7 +56,6 @@ async function loadQuestions() {
         category: decode(q.category),
         question: decode(q.question),
         correctAnswer,
-        incorrectAnswers,
         options: shuffle([correctAnswer, ...incorrectAnswers]),
       };
     });
@@ -68,15 +68,14 @@ async function loadQuestions() {
 
 function updateScores() {
   els.playerScore.textContent = state.playerScore;
-  els.computerScore.textContent = state.computerScore;
+  els.wrongScore.textContent = state.wrongScore;
 }
 
-function addHistoryEntry(index, playerCorrect, computerCorrect) {
+function addHistoryEntry(index, correct, timedOut) {
   const row = document.createElement('div');
-  row.className = 'hist-row ' + (playerCorrect ? 'correct' : 'wrong');
-  const playerText = playerCorrect ? 'acierta' : 'falla';
-  const computerText = computerCorrect ? 'acierta' : 'falla';
-  row.innerHTML = `<span class="who">Pregunta ${index + 1}</span><span>Vos ${playerText} - Computadora ${computerText}</span>`;
+  row.className = 'hist-row ' + (correct ? 'correct' : 'wrong');
+  const text = correct ? 'Correcta' : (timedOut ? 'Sin respuesta' : 'Incorrecta');
+  row.innerHTML = `<span class="who">Pregunta ${index + 1}</span><span>${text}</span>`;
   els.history.appendChild(row); // el historial usa column-reverse: lo último queda arriba
 }
 
@@ -124,17 +123,12 @@ function showQuestion() {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'answer-btn';
-    btn.textContent = option;
+    btn.textContent = option; // textContent: no interpreta HTML de la API
     btn.addEventListener('click', () => handleAnswer(option));
     els.answers.appendChild(btn);
-  }); 
-  startTimer();
-}
+  });
 
-function computerAnswer(q) {
-  if (Math.random() < 0.7) return q.correctAnswer;
-  const wrong = q.incorrectAnswers;
-  return wrong[Math.floor(Math.random() * wrong.length)];
+  startTimer();
 }
 
 function handleAnswer(playerAnswer) {
@@ -144,8 +138,7 @@ function handleAnswer(playerAnswer) {
 
   const q = state.questions[state.currentIndex];
   const timedOut = playerAnswer === null;
-  const playerCorrect = !timedOut && playerAnswer === q.correctAnswer;
-  const computerCorrect = computerAnswer(q) === q.correctAnswer;
+  const correct = !timedOut && playerAnswer === q.correctAnswer;
 
   els.answers.querySelectorAll('button').forEach(btn => {
     btn.disabled = true;
@@ -153,20 +146,20 @@ function handleAnswer(playerAnswer) {
     else if (btn.textContent === playerAnswer) btn.classList.add('wrong');
   });
 
-  if (playerCorrect) state.playerScore++;
-  if (computerCorrect) state.computerScore++;
+  if (correct) state.playerScore++;
+  else state.wrongScore++;
   updateScores();
 
   if (timedOut) {
     els.feedback.textContent = `Se acabó el tiempo. La respuesta era: ${q.correctAnswer}.`;
-  } else if (playerCorrect) {
+  } else if (correct) {
     els.feedback.textContent = 'Correcto!';
   } else {
     els.feedback.textContent = `Incorrecto. La respuesta era: ${q.correctAnswer}.`;
   }
-  els.feedback.className = 'feedback ' + (playerCorrect ? 'ok' : 'fail');
+  els.feedback.className = 'feedback ' + (correct ? 'ok' : 'fail');
 
-  addHistoryEntry(state.currentIndex, playerCorrect, computerCorrect);
+  addHistoryEntry(state.currentIndex, correct, timedOut);
 
   state.currentIndex++;
   setTimeout(showQuestion, 1800);
@@ -177,14 +170,13 @@ function endGame() {
   stopTimer();
   els.answers.innerHTML = '';
 
-  let resultText;
-  if (state.playerScore > state.computerScore) resultText = `Ganaste vos con ${state.playerScore} aciertos.`;
-  else if (state.computerScore > state.playerScore) resultText = `Gano la computadora con ${state.computerScore} aciertos.`;
-  else resultText = `Empate con ${state.playerScore} aciertos cada uno.`;
-
   els.questionMeta.textContent = 'Juego terminado';
-  els.questionText.textContent = resultText;
+  els.questionText.textContent = `Acertaste ${state.playerScore} de ${state.questions.length} preguntas.`;
   els.feedback.textContent = '';
+
+  // >>> AQUÍ va el guardado de récords de records.js.
+  // No sé cómo se llama tu función, así que no la invoqué.
+  // Ejemplo: guardarRecord('trivia', state.playerScore);
 }
 
 updateScores();
