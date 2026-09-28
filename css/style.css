@@ -36,6 +36,8 @@
     --accent: var(--azul);
     --accent-bg: var(--celeste);
     --accent-ink: #ffffff;
+    --page-bg: var(--celeste);
+    --page-ink: var(--tinta);
 }
  /* INDEX: color de cada tarjeta de juego (<a class="card dados">, "cartas" y "trivia").
    Cambian el color del círculo del ícono (.icon) y del botón "Jugar" (.btn). */
@@ -43,13 +45,24 @@
 .cartas  { --accent: var(--azul); --accent-bg: var(--celeste);  --accent-ink: #ffffff; }
 .trivia  { --accent: var(--rosa); --accent-bg: var(--amarillo); --accent-ink: var(--tinta); }
  
-/* PÁGINAS INTERNAS: color de acento según la página, detectada por un id que solo existe en ella.
-   #diceRow -> dados.html | #playerHand -> cartas.html | #questionText -> api.html */
-body:has(#diceRow)      { --accent: var(--rojo); --accent-bg: var(--amarillo); --accent-ink: #ffffff; }
-body:has(#playerHand)   { --accent: var(--azul); --accent-bg: var(--celeste);  --accent-ink: #ffffff; }
-body:has(#questionText) { --accent: var(--rosa); --accent-bg: var(--amarillo); --accent-ink: var(--tinta); }
- 
- 
+body:has(#diceRow) {
+    --accent: var(--rojo); --accent-bg: var(--amarillo); --accent-ink: #ffffff;
+    --page-bg: var(--rojo); --page-ink: #ffffff;
+}
+body:has(#playerHand) {
+    --accent: var(--azul); --accent-bg: var(--celeste); --accent-ink: #ffffff;
+    --page-bg: var(--azul); --page-ink: #ffffff;
+}
+body:has(#questionText) {
+    --accent: var(--rosa); --accent-bg: var(--amarillo); --accent-ink: var(--tinta);
+    --page-bg: var(--rosa); --page-ink: var(--tinta);
+}
+body:has(.back-btn[href$="dados.html"]) {
+    --page-bg: var(--amarillo); --page-ink: var(--tinta);
+}
+body:has(.back-btn[href$="cartas.html"]) {
+    --page-bg: var(--celeste); --page-ink: var(--tinta);
+}
 /* =========================================================
    BASE
    ========================================================= */
@@ -88,8 +101,7 @@ h1 {
 p { margin: 0 0 10px; }
 /* TODAS LAS PÁGINAS: color de los enlaces. */
 a { color: var(--tinta); }
- 
-img { max-width: 100%; }
+
 /* =========================================================
    GENERALES
    ========================================================= */
@@ -277,15 +289,7 @@ main {
     font-size: 17px;
     margin: 0;
 }
-.meta {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    color: var(--sub);
-    font-size: 13px;
-    margin-top: 16px;
-}
+
 /* INDEX: la grilla de 3 columnas con las tarjetas de los juegos. */  
 .grid {
     display: grid;
@@ -382,9 +386,9 @@ body:has(.hero) > footer {
     padding: 18px 0;
     background: var(--celeste) url("../img/fondo.jpeg") center / cover no-repeat;
     border-bottom: var(--borde);
-    font-size: 0; /* oculta el texto del HTML; se vuelve a escribir en la placa de abajo */
+    font-size: 0;
 }
- 
+
 .zona-bar::before {
     content: "zona juegos";
     display: inline-block;
@@ -410,11 +414,17 @@ body:has(.hero) > footer {
 }
 /* DADOS, API: cada opción del menú. */
 .nav-item {
-    color: var(--tinta);
+    color: var(--page-ink);
+    text-decoration: none; 
     padding: 4px 14px;
     border: 2px solid transparent;
     border-radius: 999px;
 }
+
+.nav-item:hover {
+    border-color: var(--page-ink);
+}
+
  /* DADOS, API: la opción de la página actual, resaltada en amarillo. */
 .nav-item.active {
     background: var(--amarillo);
@@ -505,10 +515,11 @@ body:has(.hero) > footer {
 .rules-toggle { margin-top: 24px; }
  
 .rules-toggle a {
+    color: var(--page-ink);
     cursor: pointer;
     font-weight: 500;
     text-decoration: underline;
-    text-decoration-color: var(--accent);
+    text-decoration-color: currentColor;
     text-decoration-thickness: 3px;
     text-underline-offset: 4px;
 }
@@ -560,15 +571,14 @@ body:has(.hero) > footer {
 }
  
 /* DADOS: enlace "guia de juego" (.guia-dados). CARTAS: lo mismo (.guia-cartas). */
-.guide-link,
 .guia-dados,
 .guia-cartas {
     margin-top: 18px;
 }
  /* El texto del enlace "guia de juego", subrayado en rosa. */
-.guide-link a,
 .guia-dados a,
 .guia-cartas a {
+    color: var(--page-ink);
     font-weight: 500;
     font-size: 15px;
     text-decoration: underline;
@@ -583,7 +593,7 @@ body:has(.hero) > footer {
     border-top: var(--borde);
     font-size: 13px;
     font-weight: 500;
-    color: var(--tinta);
+    color: var(--page-ink);
 }
 /* =========================================================
    dados.html
@@ -644,10 +654,6 @@ body:has(.hero) > footer {
 /* DADOS: los puntos del dado elegido se ven rojos. */
 .die.selected .pip { background: var(--rojo); }
  
-.die.kept {
-    background: var(--celeste);
-    cursor: default;
-}
 /* DADOS: dados bloqueados durante el turno de la computadora. */
 .die.locked {
     opacity: 0.5;
@@ -661,16 +667,13 @@ body:has(.hero) > footer {
 /* =========================================================
    cartas.html
    ========================================================= */
-
-.back-row {
-    margin: 16px 0 4px;
-}
 /* CARTAS: el enlace "Volver al menú". */
 a.back-link {
+    color: var(--page-ink);
     font-size: 14px;
     font-weight: 500;
     text-decoration: underline;
-    text-decoration-color: var(--amarillo);
+    text-decoration-color: currentColor;
     text-decoration-thickness: 3px;
     text-underline-offset: 4px;
 }
@@ -793,10 +796,6 @@ a.back-link {
     font-size: 15px;
     font-weight: 500;
 }
- 
-.feedback.correct { color: var(--azul); }
-.feedback.wrong   { color: var(--rojo); }
- 
  
 /* =========================================================
    instrucciones
