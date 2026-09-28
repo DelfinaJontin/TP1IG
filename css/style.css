@@ -828,6 +828,101 @@ div.back-link {
     margin-bottom: 12px;
 }
  
+/* =========================================================
+   puntajes.html
+   ========================================================= */
+ 
+/* PUNTAJES: fondo azul oscuro (la "tinta" de la paleta) y textos en amarillo */
+body.pagina-puntajes {
+    --page-bg: var(--tinta);
+    --page-ink: var(--amarillo);
+}
+ 
+/* PUNTAJES: las líneas del menú y del pie en amarillo, para que se vean sobre el fondo oscuro */
+.pagina-puntajes .nav,
+.pagina-puntajes .site-footer {
+    border-color: var(--amarillo);
+}
+ 
+/* PUNTAJES: el <main> no usa el ancho ni el relleno del index */
+main.puntajes-main {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+}
+ 
+/* PUNTAJES: el texto de abajo del título */
+.puntajes-intro {
+    color: var(--page-ink);
+    margin: -16px 0 24px;
+}
+ 
+/* PUNTAJES: las 3 tarjetas de récords, una por juego */
+.records-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    text-align: left;
+}
+ 
+/* PUNTAJES: cada tarjeta lleva arriba una franja del color de su juego */
+.records-card {
+    border-top: 10px solid var(--accent);
+}
+ 
+/* PUNTAJES: el nombre del juego en la tarjeta */
+.records-card h2 {
+    font-size: 22px;
+    margin: 0 0 10px;
+}
+ 
+/* PUNTAJES: el mejor puntaje de cada juego, en grande */
+.records-best {
+    font-family: var(--font-titulo);
+    font-size: 28px;
+    margin: 0 0 12px;
+}
+ 
+/* PUNTAJES: la tabla con los 5 mejores de cada juego */
+.records-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+ 
+.records-table th {
+    text-align: left;
+    font-weight: 700;
+    padding: 6px 4px;
+    border-bottom: var(--borde);
+}
+ 
+.records-table td {
+    padding: 7px 4px;
+    border-bottom: 1px dashed var(--celeste);
+}
+ 
+/* PUNTAJES: la primera fila (el récord) resaltada con el color de fondo del juego */
+.records-table tbody tr:first-child {
+    background: var(--accent-bg);
+    font-weight: 700;
+}
+ 
+/* PUNTAJES: mensaje cuando un juego todavía no tiene partidas */
+.records-vacio {
+    color: var(--sub);
+    font-size: 14px;
+}
+ 
+/* PUNTAJES: el botón "Borrar todos los récords" */
+.records-acciones {
+    margin-top: 26px;
+}
+ 
+/* PUNTAJES: en pantallas medianas y chicas, las tarjetas van una debajo de la otra */
+@media (max-width: 800px) {
+    .records-grid { grid-template-columns: 1fr; }
+}
  
 /* =========================================================
    RESPONSIVE Y ACCESIBILIDAD

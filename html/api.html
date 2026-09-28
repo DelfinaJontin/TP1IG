@@ -11,13 +11,13 @@
 
   <div class="zona-bar">zona juegos</div>
 
-  <nav class="nav">
-     <a class="nav-item" href="../index.html">Inicio</a>
-     <a class="nav-item" href="dados.html">10000</a>
-     <a class="nav-item" href="cartas.html">Blackjack</a>
-     <a class="nav-item active" href="api.html">Trivia</a>
+ <nav class="nav">
+    <a class="nav-item" href="../index.html">Inicio</a>
+    <a class="nav-item" href="dados.html">10000</a>
+    <a class="nav-item" href="cartas.html">Blackjack</a>
+    <a class="nav-item active" href="api.html">Trivia</a>
+    <a class="nav-item" href="puntajes.html">Puntajes</a> 
   </nav>
-
   <h1>Trivia - vos vs. la computadora</h1>
 
   <div class="columns">
@@ -51,10 +51,22 @@
         <div class="feedback" id="feedback"></div>
       </div>
     </div>
+  </div>
+
+  <div class="rules-toggle"><a id="rulesLink">Ver reglas</a></div>
+    <div class="rules" id="rulesBox">
+        <p>Se juegan 10 preguntas de verdadero o falso.</p>
+        <p>En cada pregunta respondés primero vos y después la computadora.</p>
+        <p>Cada acierto suma 1 punto. El que más puntos tenga al final de las 10 preguntas gana.</p>
+  </div>
+
+<div class="banner-goal">el que mas aciertos suma, gana!</div>
+<div class="guia-cartas"><a href="puntajes.html">Ver puntajes</a></div>
 
   <footer class="site-footer">tp1 2026</footer>
-
 </div>
+
+<script src="../js/records.js"></script>
 <script src="../js/trivia.js"></script>
 </body>
 </html>

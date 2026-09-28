@@ -58,4 +58,4 @@ function borrarRecords() {
     console.error('No se pudieron borrar los récords:', error);
   }
 }
- 
+
