@@ -364,8 +364,14 @@ footer {
  
 /* INDEX: el footer lleva fondo oscuro para leerse sobre la imagen. */
 body:has(.hero) > footer {
-    background: var(--tiza);
-    color: var(--tinta);
+    width: fit-content;       
+    margin: 0 auto 32px;        
+    padding: 10px 18px;         
+    background: var(--amarillo); 
+    border: var(--borde);        
+    border-radius: 10px;        
+    box-shadow: 3px 3px 0 var(--tinta); 
+    font-size: 15px;             
 }
  /* =========================================================
    ESTRUCTURA COMÚN DE LAS PÁGINAS
