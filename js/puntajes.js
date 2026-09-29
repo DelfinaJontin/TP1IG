@@ -41,7 +41,8 @@ function mostrarRecords() {
     const lista = records[juego.clave];
     const contenedor = document.getElementById('records-' + juego.clave);
     const mejor = document.getElementById('best-' + juego.clave);
- 
+    if (!contenedor || !mejor) return;
+    
     contenedor.innerHTML = ''; // limpia lo que hubiera antes
  
     // Si todavía no hay partidas guardadas, muestra un mensaje
