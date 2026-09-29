@@ -609,14 +609,17 @@ body:has(.hero) > footer {
     transform: translate(3px, 3px);
     box-shadow: 0 0 0 var(--tinta);
 }
-/* DADOS, API, GUÍAS: el pie */
 .site-footer {
-    margin-top: 28px;
-    padding-top: 14px;
-    border-top: var(--borde);
-    font-size: 13px;
+    width: fit-content;                
+    margin: 32px auto 0;                
+    padding: 10px 18px;                 
+    background: var(--amarillo);        
+    color: var(--tinta);                
+    border: var(--borde);               
+    border-radius: 10px;                
+    box-shadow: 3px 3px 0 var(--tinta);
+    font-size: 15px;                    
     font-weight: 500;
-    color: var(--page-ink);
 }
 /* =========================================================
    dados.html
