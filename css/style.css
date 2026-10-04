@@ -1,326 +1,370 @@
 /* =========================================================
-   FUENTES
-   ========================================================= */
-/* Permanent Marker: títulos, tiene trazo de fibrón como la imagen.
-   Rubik: textos y botones, redondeada y fácil de leer. */
-   @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Rubik:wght@400;500;700&display=swap');
+   ZONA JUEGOS - style.css
+   Hoja de estilos única para todo el sitio.
+   Escrita solo con lo visto en las clases: selectores de etiqueta,
+   clase, id, agrupados, descendientes y combinados; pseudo-clases
+   de mouse (:hover, :active); pseudo-elementos (::before);
+   modelo de caja; display; position; overflow y Flexbox.
 
-/* Variables de todo el sitio: colores de la imagen, fuentes, bordes y sombras.
-   Si querés cambiar un color en TODAS las páginas, cambialo acá. */
-:root {
-    box-sizing: border-box;
-    padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
- /* Colores de fondo.jpeg */
-    --amarillo: #d5da84;
-    --rojo:     #c2624e;
-    --rosa:     #dd88b7;
-    --celeste:  #96aad2;
-    --azul:     #496ebc;
- 
-    /* Neutros: la tinta es el azul oscurecido, el blanco es el de la tiza */
-    --tinta:  #1d2a4d;
-    --tiza:   #fbfbf7;
-    --sub:    #4a5577;
- 
-    /* Tipografías */
-    --font-titulo: 'Permanent Marker', 'Comic Sans MS', cursive;
-    --font-texto:  'Rubik', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
- 
-    /* Detalles */
-    --borde: 2px solid var(--tinta);
-    --sombra: 4px 4px 0 var(--tinta);
-    --radio: 14px;
-    --sombra-suave: 0 8px 22px rgba(29, 42, 77, 0.22);
- 
-    /* Acento por defecto */
-    --accent: var(--azul);
-    --accent-bg: var(--celeste);
-    --accent-ink: #ffffff;
-    --page-bg: var(--celeste);
-    --page-ink: var(--tinta);
-}
- /* INDEX: color de cada tarjeta de juego (<a class="card dados">, "cartas" y "trivia").
-   Cambian el color del círculo del ícono (.icon) y del botón "Jugar" (.btn). */
-.dados   { --accent: var(--rojo); --accent-bg: var(--amarillo); --accent-ink: #ffffff; }
-.cartas  { --accent: var(--azul); --accent-bg: var(--celeste);  --accent-ink: #ffffff; }
-.trivia  { --accent: var(--rosa); --accent-bg: var(--amarillo); --accent-ink: var(--tinta); }
- 
-body:has(#diceRow) {
-    --accent: var(--rojo); --accent-bg: var(--amarillo); --accent-ink: #ffffff;
-    --page-bg: var(--rojo); --page-ink: #ffffff;
-}
-body:has(#playerHand) {
-    --accent: var(--azul); --accent-bg: var(--celeste); --accent-ink: #ffffff;
-    --page-bg: var(--azul); --page-ink: #ffffff;
-}
-body:has(#questionText) {
-    --accent: var(--rosa); --accent-bg: var(--amarillo); --accent-ink: var(--tinta);
-    --page-bg: var(--rosa); --page-ink: var(--tinta);
-}
-body:has(.back-btn[href$="dados.html"]) {
-    --page-bg: var(--amarillo); --page-ink: var(--tinta);
-}
-body:has(.back-btn[href$="cartas.html"]) {
-    --page-bg: var(--celeste); --page-ink: var(--tinta);
-}
+   Colores (sacados de la imagen de fondo del index):
+   amarillo #d5da84 | rojo #c2624e | rosa #dd88b7
+   celeste #96aad2  | azul #496ebc
+   azul oscuro ("tinta") #1d2a4d | blanco tiza #fbfbf7 | gris #4a5577
+
+   Las fuentes (Permanent Marker y Rubik) se cargan en el <head>
+   de cada HTML con una etiqueta <link>.
+   ========================================================= */
+
+
 /* =========================================================
-   BASE
+   BASE (todas las páginas)
    ========================================================= */
-/* TODAS LAS PÁGINAS: el ancho de los elementos incluye borde y relleno. */
-*, *::before, *::after { box-sizing: border-box; }
- 
-html {
-    scroll-padding-top: env(safe-area-inset-top, 0px);
+
+/* El ancho de cada caja incluye su borde y su padding */
+* {
+    box-sizing: border-box;
 }
 
-/* TODAS LAS PÁGINAS: fondo celeste, color de texto y fuente base.
-   (El index pisa el fondo con la imagen más abajo, en el bloque 4.) */
+/* Fondo celeste por defecto, texto azul oscuro y fuente Rubik */
 body {
     margin: 0;
-    background: var(--page-bg);
-    color: var(--tinta);
-    font-family: var(--font-texto);
+    background-color: #96aad2;
+    color: #1d2a4d;
+    font-family: 'Rubik', Arial, sans-serif;
     font-size: 16px;
     line-height: 1.5;
 }
- 
-/* TODAS LAS PÁGINAS: títulos con la fuente Permanent Marker.
-   h1 = título de cada página | h2 = nombre del juego en las tarjetas del index. */
-h1, h2 {
-    font-family: var(--font-titulo);
+
+/* Títulos con la fuente Permanent Marker */
+h1,
+h2 {
+    font-family: 'Permanent Marker', cursive;
     font-weight: 400;
     line-height: 1.15;
-    letter-spacing: 0.5px;
 }
-/* TODAS LAS PÁGINAS: tamaño y separación del título 1 */
+
 h1 {
-    font-size: clamp(28px, 5vw, 40px);
+    font-size: 38px;
     margin: 8px 0 28px;
-    color: var(--page-ink);
 }
-/* TODAS LAS PÁGINAS: espacio debajo de cada párrafo. */
-p { margin: 0 0 10px; }
-/* TODAS LAS PÁGINAS: color de los enlaces. */
-a { color: var(--tinta); }
+
+p {
+    margin: 0 0 10px;
+}
+
+a {
+    color: #1d2a4d;
+}
+
 
 /* =========================================================
-   GENERALES
+   COLOR DE FONDO DE CADA PÁGINA
+   Cada <body> tiene una clase: pagina-index, pagina-dados,
+   pagina-cartas, pagina-trivia, pagina-instdados,
+   pagina-instcartas y pagina-puntajes.
    ========================================================= */
- 
-/* CARTAS.HTML: oculta elementos. La usan #playActions y #aceHint en el HTML,
-   y script.js la agrega o la saca para mostrar o sacar botones. */
-.is-hidden { display: none !important; }
 
-/* CARTAS.HTML: oculta el <label> del campo de apuesta a la vista,
-   pero lo deja disponible para lectores de pantalla. */
+/* INDEX: la imagen de fondo */
+body.pagina-index {
+    background-color: #1d2a4d;
+    background-image: url("../multimedia/fondo.png.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+/* DADOS: rojo */
+body.pagina-dados {
+    background-color: #c2624e;
+}
+
+/* CARTAS: azul */
+body.pagina-cartas {
+    background-color: #496ebc;
+}
+
+/* TRIVIA: rosa */
+body.pagina-trivia {
+    background-color: #dd88b7;
+}
+
+/* GUÍA DE DADOS: amarillo */
+body.pagina-instdados {
+    background-color: #d5da84;
+}
+
+/* GUÍA DE CARTAS: celeste */
+body.pagina-instcartas {
+    background-color: #96aad2;
+}
+
+/* PUNTAJES: azul oscuro */
+body.pagina-puntajes {
+    background-color: #1d2a4d;
+}
+
+/* En las páginas de fondo oscuro (dados y cartas), los textos que van
+   directo sobre el fondo se ven en blanco para poder leerlos */
+.pagina-dados h1,
+.pagina-dados .nav-item,
+.pagina-dados .rules-toggle a,
+.pagina-cartas h1,
+.pagina-cartas .nav-item {
+    color: #ffffff;
+}
+
+/* En puntajes (fondo azul oscuro), los textos van en amarillo */
+.pagina-puntajes h1,
+.pagina-puntajes .nav-item,
+.pagina-puntajes .puntajes-intro {
+    color: #d5da84;
+}
+
+
+/* =========================================================
+   GENERALES (se usan en varias páginas)
+   ========================================================= */
+
+/* Oculta elementos. El JS agrega o saca esta clase para mostrar u ocultar */
+.is-hidden {
+    display: none !important;
+}
+
+/* CARTAS: oculta el <label> del campo de apuesta corriéndolo fuera de la pantalla.
+   Sigue existiendo para los lectores de pantalla */
 .visually-hidden {
     position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+    left: -9999px;
 }
- 
-/* CARTAS.HTML: el botón "Apostar" ocupa el ancho sobrante. */
-.btn-grow { flex: 1; }
- 
-/* CARTAS, DADOS, API, GUÍAS: las cajas blancas con borde que contienen cada sección. */
+
+/* CARTAS: el botón "Apostar" ocupa el ancho que sobra */
+.btn-grow {
+    flex: 1;
+}
+
+/* Las cajas blancas que contienen cada sección.
+   El borde más grueso a la derecha y abajo da efecto de sombra */
 .panel {
-    background: var(--tiza);
-    border: var(--borde);
-    border-radius: var(--radio);
-    box-shadow: var(--sombra);
+    background-color: #fbfbf7;
+    border: 2px solid #1d2a4d;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-radius: 14px;
     padding: 18px;
 }
-/* Título de cada panel: "Historial de turnos" (dados), "Historial de preguntas" (api)
-   y "Historial de manos" (.panel-title en cartas). */
-.panel > p:first-child:not([class]),
+
+/* Título de cada panel ("Historial de turnos", "Historial de manos"...) */
 .panel-title {
     font-weight: 700;
     font-size: 15px;
     margin: 0 0 12px;
 }
- 
-/* CARTAS, DADOS, API: todos los <button>
-   GUÍAS: el enlace "Volver al juego"se ve igual que un botón. */
+
+/* Todos los botones, y el enlace "Volver al juego" de las guías */
 button,
 .back-btn {
-    font-family: var(--font-texto);
+    font-family: 'Rubik', Arial, sans-serif;
     font-size: 15px;
     font-weight: 500;
-    color: var(--tinta);
-    background: var(--tiza);
-    border: var(--borde);
+    color: #1d2a4d;
+    background-color: #fbfbf7;
+    border: 2px solid #1d2a4d;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
     border-radius: 10px;
-    box-shadow: 3px 3px 0 var(--tinta);
     padding: 10px 18px;
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
-/* Botones: efecto al pasar el mouse */ 
-button:hover:not(:disabled),
+
+/* Botones: al pasar el mouse se ponen blancos */
+button:hover,
 .back-btn:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0 var(--tinta);
+    background-color: #ffffff;
 }
- 
-/* Botones: efecto al hacer clic */
-button:active:not(:disabled),
+
+/* Botones: al hacer clic bajan un poquito (se "hunden") */
+button:active,
 .back-btn:active {
-    transform: translate(3px, 3px);
-    box-shadow: 0 0 0 var(--tinta);
+    position: relative;
+    top: 2px;
 }
-/* Botones principales fondo amarillo.
-   "Apostar", "Pedir carta", "Tirar dados", "Verdadero", "Volver al juego". */
+
+/* Botones principales: fondo amarillo */
 button.primary,
 .back-btn.primary {
-    background: var(--amarillo);
+    background-color: #d5da84;
     font-weight: 700;
 }
-/* Botones desactivados transparentes y no se pueden apretar*/
-button:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-    box-shadow: none;
+
+/* Botones principales: al pasar el mouse se ponen rosas */
+button.primary:hover,
+.back-btn.primary:hover {
+    background-color: #dd88b7;
 }
-/* TODAS LAS PÁGINAS contorno azul al navegar con el teclado */
-button:focus-visible,
-a:focus-visible,
-input:focus-visible {
-    outline: 3px solid var(--azul);
-    outline-offset: 3px;
-}
- 
-/* CARTAS.HTML el campo donde se escribe la apuesta */
-input[type="number"] {
-    font-family: var(--font-texto);
+
+/* CARTAS: el campo donde se escribe la apuesta */
+#betInput {
+    font-family: 'Rubik', Arial, sans-serif;
     font-size: 16px;
-    color: var(--tinta);
-    background: #ffffff;
-    border: var(--borde);
+    color: #1d2a4d;
+    background-color: #ffffff;
+    border: 2px solid #1d2a4d;
     border-radius: 10px;
     padding: 10px 12px;
     width: 110px;
+    margin-right: 10px;
 }
- 
-/* ---- Historial (dados, blackjack y trivia) ---- */
-#history,
+
+/* Historial (dados, cartas y trivia): lo último queda arriba,
+   y si se llena aparece una barra para desplazarse */
 .history,
 .history-list {
     display: flex;
     flex-direction: column-reverse;
-    gap: 6px;
     max-height: 220px;
     overflow-y: auto;
 }
-/* Cada renglón del historial */ 
+
+/* Cada renglón del historial (lo crean los JS) */
 .hist-row {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
     font-size: 13px;
-    background: #ffffff;
-    border: 1px solid var(--celeste);
-    border-left: 5px solid var(--celeste);
+    background-color: #ffffff;
+    border: 1px solid #96aad2;
+    border-left: 5px solid #96aad2;
     border-radius: 8px;
     padding: 7px 10px;
+    margin-bottom: 6px;
 }
-/* DADOS.JS: borde azul cuando un jugador se planta, rojo cuando hace Farkle. */
-.hist-row.bank    { border-left-color: var(--azul); }
-.hist-row.farkle  { border-left-color: var(--rojo); }
-.hist-row.correct { border-left-color: var(--azul); }
-.hist-row.wrong   { border-left-color: var(--rojo); }
-/* Texto principal de cada renglón del historial*/
-.hist-row .who { font-weight: 500; }
- /* =========================================================
-   INDEX.HTML
+
+/* Texto principal de cada renglón */
+.hist-row .who {
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+/* DADOS: borde azul cuando alguien se planta, rojo cuando hace Farkle */
+.hist-row.bank {
+    border-left-color: #496ebc;
+}
+
+.hist-row.farkle {
+    border-left-color: #c2624e;
+}
+
+/* TRIVIA: borde azul si acertaste, rojo si fallaste */
+.hist-row.correct {
+    border-left-color: #496ebc;
+}
+
+.hist-row.wrong {
+    border-left-color: #c2624e;
+}
+
+
+/* =========================================================
+   INDEX
    ========================================================= */
- 
-/* INDEX: la imagen fondo.jpeg de fondo*/
-body:has(.hero) {
-    background: var(--tinta) url("../multimedia/fondo.png.jpeg") center / cover no-repeat;
-    min-height: 100vh;
-}
-/* INDEX: barra superior azul oscuro con "zona juegos". */
+
+/* Barra superior blanca con "zona juegos" */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 14px 24px;
-    padding-top: calc(14px + env(safe-area-inset-top, 0px));
-    background: var(--tiza); 
-    color: var(--tinta); 
+    background-color: #fbfbf7;
+    color: #1d2a4d;
 }
-/* INDEX: el texto "zona juegos" del header. */ 
+
 header span {
-    font-family: var(--font-titulo);
+    font-family: 'Permanent Marker', cursive;
     font-size: 22px;
 }
-/* INDEX: ancho máximo y márgenes del contenido principal. */
+
+/* El menú va dentro de la barra blanca, sin línea ni márgenes extra.
+   Si no entra al lado de "zona juegos", baja a la línea siguiente */
+header {
+    flex-wrap: wrap;
+}
+
+header .nav {
+    border-bottom: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Ancho máximo y márgenes del contenido */
 main {
     max-width: 760px;
     margin: 0 auto;
     padding: 48px 24px 64px;
 }
- /* INDEX: la placa blanca con el título "Zona de juegos" y la descripción. */
+
+/* Placa blanca con el título y la descripción */
 .hero {
     text-align: center;
     margin-bottom: 40px;
-    background: var(--tiza);
-     border-radius: var(--radio);
-    box-shadow: var(--sombra-suave);
+    background-color: #fbfbf7;
+    border-radius: 14px;
     padding: 28px 24px;
 }
- /* INDEX: el título "Zona de juegos". */
+
 .hero h1 {
-    font-size: clamp(34px, 7vw, 56px);
+    font-size: 52px;
     margin: 0 0 8px;
-    color: var(--tinta);
+    color: #1d2a4d;
 }
 
-/* INDEX: el texto "Tres minijuegos para jugar y aprender...". */
 .hero p {
-    color: var(--sub);
+    color: #4a5577;
     font-size: 17px;
     margin: 0;
 }
 
-/* INDEX: la grilla de 3 columnas con las tarjetas de los juegos. */  
+/* Las tarjetas de los juegos, una al lado de la otra.
+   En pantallas chicas bajan solas a la línea siguiente (flex-wrap) */
 .grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -9px;
 }
- 
-/* Tarjetas de juego del index (distintas de las cartas del blackjack) */
+
+/* Cada tarjeta de juego. El borde es del mismo color que la tarjeta,
+   y al pasar el mouse toma el color de su juego */
 .grid .card {
-    background: var(--tiza);
-    border-radius: var(--radio);
-    box-shadow: var(--sombra-suave);
+    flex: 1;
+    min-width: 200px;
+    margin: 0 9px 18px;
+    background-color: #fbfbf7;
+    border: 4px solid #fbfbf7;
+    border-radius: 14px;
     padding: 28px 16px;
     text-align: center;
     text-decoration: none;
-    color: var(--tinta);
+    color: #1d2a4d;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    height: 100%;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
- /* INDEX: la tarjeta se inclina y cambia la sombra al pasar el mouse. */
-.grid .card:hover {
-    transform: translate(-3px, -3px) rotate(-1deg);
-    box-shadow: 0 0 0 4px var(--accent), var(--sombra-suave);
+
+.grid .card.dados:hover {
+    border-color: #c2624e;
 }
-/* INDEX: el círculo con el emoji de cada juego . */
+
+.grid .card.cartas:hover {
+    border-color: #496ebc;
+}
+
+.grid .card.trivia:hover {
+    border-color: #dd88b7;
+}
+
+/* El círculo con el emoji de cada juego */
 .icon {
     width: 58px;
     height: 58px;
@@ -330,632 +374,743 @@ main {
     align-items: center;
     justify-content: center;
     font-size: 26px;
-    background: var(--accent-bg);
 }
-/* INDEX: nombre del juego en la tarjeta */ 
+
+.card.dados .icon {
+    background-color: #d5da84;
+}
+
+.card.cartas .icon {
+    background-color: #96aad2;
+}
+
+.card.trivia .icon {
+    background-color: #d5da84;
+}
+
+/* Nombre y descripción de cada juego */
 .grid .card h2 {
     font-size: 20px;
     margin: 0 0 6px;
 }
-/* INDEX: descripción corta de cada juego. */
+
 .grid .card p {
     font-size: 14px;
-    color: var(--sub);
+    color: #4a5577;
     margin: 0 0 16px;
 }
-/* INDEX: el botón "Jugar" de cada tarjeta (es un <span class="btn">). */
+
+/* El botón "Jugar" de cada tarjeta, del color de su juego */
 .btn {
     display: inline-block;
     padding: 9px 20px;
     border-radius: 10px;
     font-size: 15px;
     font-weight: 700;
-    background: var(--accent);
-    color: var(--accent-ink);
 }
-/* INDEX: el pie de página */
+
+.card.dados .btn {
+    background-color: #c2624e;
+    color: #ffffff;
+}
+
+.card.cartas .btn {
+    background-color: #496ebc;
+    color: #ffffff;
+}
+
+.card.trivia .btn {
+    background-color: #dd88b7;
+    color: #1d2a4d;
+}
+
+/* Pie de página (base) */
 footer {
     text-align: center;
     font-size: 13px;
     font-weight: 500;
     padding: 24px;
-    padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
 }
- 
-/* INDEX: el footer lleva fondo oscuro para leerse sobre la imagen. */
-body:has(.hero) > footer {
-    width: fit-content;       
-    margin: 0 auto 32px;        
-    padding: 10px 18px;         
-    background: var(--amarillo); 
-    border: var(--borde);        
-    border-radius: 10px;        
-    box-shadow: 3px 3px 0 var(--tinta); 
-    font-size: 15px;             
+
+/* INDEX: el pie es una placa amarilla centrada */
+.pagina-index footer {
+    width: 200px;
+    margin: 0 auto 32px;
+    padding: 10px 18px;
+    background-color: #d5da84;
+    border: 2px solid #1d2a4d;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-radius: 10px;
+    font-size: 15px;
 }
- /* =========================================================
-   ESTRUCTURA COMÚN DE LAS PÁGINAS
+
+
+/* =========================================================
+   ESTRUCTURA COMÚN DE LAS PÁGINAS INTERNAS
    ========================================================= */
-/* CARTAS, DADOS, API, GUÍAS: el contenedor que envuelve toda la página. */
+
+/* Contenedor que envuelve cada página */
 .wrap {
     max-width: 880px;
     margin: 0 auto;
     padding: 0 20px 32px;
     text-align: center;
 }
- 
-/* Franja superior: un pedacito del fondo del index, así todas las páginas se conectan.
-   El texto "zona juegos" se muestra en una placa blanca encima de la imagen. */
+
+/* Franja superior con un pedazo de la imagen del index.
+   El texto del HTML se oculta (font-size: 0) y se vuelve a escribir
+   en una placa blanca con el pseudo-elemento ::before */
 .zona-bar {
     margin: 0 -20px;
     padding: 18px 0;
-    background: var(--page-bg) url("../multimedia/fondo.png.jpeg") center / cover no-repeat;
-    border-bottom: var(--borde);
+    background-color: #1d2a4d;
+    background-image: url("../multimedia/fondo.png.jpeg");
+    background-size: cover;
+    background-position: center;
+    border-bottom: 2px solid #1d2a4d;
     font-size: 0;
 }
 
 .zona-bar::before {
     content: "zona juegos";
     display: inline-block;
-    font-family: var(--font-titulo);
+    font-family: 'Permanent Marker', cursive;
     font-size: 22px;
-    color: var(--tinta);
-    background: var(--tiza);
-    border: var(--borde);
+    color: #1d2a4d;
+    background-color: #fbfbf7;
+    border: 2px solid #1d2a4d;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
     border-radius: 10px;
-    box-shadow: 3px 3px 0 var(--tinta);
     padding: 4px 16px;
 }
- /* DADOS, API: el menú  */
+
+/* Menú de navegación */
 .nav {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 10px;
-    padding: 16px 0;
-    border-bottom: var(--borde);
+    padding: 12px 0;
+    border-bottom: 2px solid #1d2a4d;
     margin-bottom: 20px;
     font-size: 15px;
 }
-/* DADOS, API: cada opción del menú. */
+
+.pagina-puntajes .nav {
+    border-bottom-color: #d5da84;
+}
+
+/* Cada opción del menú */
 .nav-item {
-    color: var(--page-ink);
-    text-decoration: none; 
+    color: #1d2a4d;
+    text-decoration: none;
     padding: 4px 14px;
+    margin: 4px;
     border: 2px solid transparent;
     border-radius: 999px;
 }
 
+/* Al pasar el mouse se subraya */
 .nav-item:hover {
-    border-color: var(--page-ink);
+    text-decoration: underline;
 }
 
- /* DADOS, API: la opción de la página actual, resaltada en amarillo. */
-.nav-item.active {
-    color: var(--tinta);
-    background: var(--amarillo);
-    border-color: var(--tinta);
+/* La opción de la página actual, resaltada en amarillo */
+.nav .nav-item.active {
+    color: #1d2a4d;
+    background-color: #d5da84;
+    border-color: #1d2a4d;
     font-weight: 700;
 }
-/* DADOS, API: las dos columnas (izquierda: puntajes e historial, derecha: juego). */
+
+/* DADOS y TRIVIA: dos columnas (puntajes e historial | juego).
+   En pantallas chicas bajan una debajo de la otra (flex-wrap + min-width) */
 .columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -11px;
     text-align: left;
 }
- /* DADOS, API: cada una de las dos columnas. */
+
 .col {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
+    flex: 1;
+    min-width: 280px;
+    margin: 0 11px;
 }
- 
-/* ---- Tarjetas de puntaje (dados y blackjack) ---- */
-.scores {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
+
+/* Separación entre las cajas de cada columna */
+.col > div {
     margin-bottom: 22px;
 }
- /* DADOS: dentro de las columnas no hace falta el margen de abajo. */
-.columns .scores { margin-bottom: 0; }
-/* CARTAS, DADOS: cada tarjeta de puntaje. */
+
+/* DADOS y CARTAS: las dos tarjetas de puntaje lado a lado */
+.scores {
+    display: flex;
+    margin: 0 -7px 22px;
+}
+
 .score-card {
-    background: var(--tiza);
-    border: var(--borde);
-    border-radius: var(--radio);
+    flex: 1;
+    margin: 0 7px;
+    background-color: #fbfbf7;
+    border: 2px solid #1d2a4d;
+    border-radius: 14px;
     padding: 14px;
     text-align: center;
 }
- /* CARTAS: resalta "Fichas". DADOS: resalta a quién le toca. */
+
+/* La tarjeta resaltada (a quién le toca, o las fichas) */
 .score-card.active {
-    background: var(--accent-bg);
-    box-shadow: var(--sombra);
+    border-right-width: 5px;
+    border-bottom-width: 5px;
 }
-/* CARTAS, DADOS, API: el texto chico arriba de cada puntaje  */
+
+.pagina-dados .score-card.active {
+    background-color: #d5da84;
+}
+
+.pagina-cartas .score-card.active {
+    background-color: #96aad2;
+}
+
+/* Texto chico arriba de cada puntaje */
 .label {
     font-size: 13px;
     font-weight: 500;
-    color: var(--sub);
+    color: #4a5577;
     margin: 0 0 2px;
 }
- /* CARTAS, DADOS, API: el número grande de cada puntaje. */
+
+/* Número grande de cada puntaje */
 .value {
-    font-family: var(--font-titulo);
+    font-family: 'Permanent Marker', cursive;
     font-size: 30px;
     margin: 0;
 }
- 
-/* ---- Mensajes del juego ---- */
+
+/* Recuadro de mensajes del juego */
 .msg {
-    background: #ffffff;
-    border: 2px dashed var(--tinta);
+    background-color: #ffffff;
+    border: 2px dashed #1d2a4d;
     border-radius: 10px;
     padding: 10px 14px;
     margin: 14px 0;
     font-size: 15px;
     text-align: center;
 }
-/* DADOS: mensaje en rojo cuando hay Farkle o la selección no puntúa  */ 
+
+/* DADOS: mensaje rojo cuando hay Farkle o la selección no puntúa */
 .msg.farkle {
-    background: var(--rojo);
+    background-color: #c2624e;
     color: #ffffff;
     border-style: solid;
 }
-/* DADOS: mensaje en amarillo cuando alguien gana la partida  */ 
+
+/* DADOS: mensaje amarillo cuando alguien gana */
 .msg.win {
-    background: var(--amarillo);
+    background-color: #d5da84;
     border-style: solid;
     font-weight: 700;
 }
- /* CARTAS, DADOS, API: la fila de botones de juego. */
+
+/* Fila de botones de juego */
 .actions {
     display: flex;
-    gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
 }
- 
-/* DADOS, API: el enlace "Ver tabla de puntajes" / "Ver reglas". */
-.rules-toggle { margin-top: 24px; }
- 
+
+.actions button {
+    margin: 5px;
+}
+
+/* DADOS: el enlace "Tabla de valores", subrayado con un borde */
+.rules-toggle {
+    margin-top: 24px;
+}
+
 .rules-toggle a {
-    color: var(--page-ink);
     cursor: pointer;
     font-weight: 500;
-    text-decoration: underline;
-    text-decoration-color: currentColor;
-    text-decoration-thickness: 3px;
-    text-underline-offset: 4px;
+    text-decoration: none;
+    border-bottom: 3px solid;
 }
-/* DADOS, API: la caja de reglas (#rulesBox), oculta al principio. */
+
+/* DADOS: la caja con la tabla de valores, oculta al principio.
+   El JS le agrega la clase "show" para mostrarla */
 .rules {
     display: none;
     text-align: left;
-    background: var(--tiza);
-    border: var(--borde);
-    border-radius: var(--radio);
+    background-color: #fbfbf7;
+    border: 2px solid #1d2a4d;
+    border-radius: 14px;
     padding: 16px 18px;
     margin-top: 12px;
 }
-/* DADOS, API: la caja de reglas se muestra cuando el JS le agrega la clase "show". */
-.rules.show { display: block; }
- 
-/* ---- Tablas (reglas y guías) ---- */
-.rules table,
-.guia-table {
-    width: 100%;
-    border-collapse: collapse;
+
+.rules.show {
+    display: block;
+}
+
+/* DADOS y GUÍAS: lista de valores (reemplaza a las tablas).
+   Cada fila tiene el nombre a la izquierda y el valor a la derecha */
+.valores {
     margin: 6px 0 14px;
     font-size: 14px;
 }
- /* Cada celda de las tablas, con una línea punteada abajo. */
-.rules td,
-.guia-table td {
+
+.valores-fila {
+    display: flex;
+    justify-content: space-between;
     padding: 8px 4px;
-    border-bottom: 1px dashed var(--celeste);
+    border-bottom: 1px dashed #96aad2;
 }
- 
-/* La columna derecha de las tablas (los puntos o valores), en negrita. */
-.rules td:last-child,
-.guia-table td:last-child {
+
+.valores-fila strong {
+    margin-left: 10px;
     text-align: right;
-    font-weight: 700;
 }
- 
-/* DADOS, API: la franja oscura con "el que llega a 10.000 gana!" / "el que mas aciertos suma, gana!". */
+
+/* Franja oscura con el objetivo del juego */
 .banner-goal {
     margin-top: 24px;
-    background: var(--tinta);
-    color: var(--amarillo);
-    border-radius: var(--radio);
+    background-color: #1d2a4d;
+    color: #d5da84;
+    border-radius: 14px;
     padding: 14px 18px;
-    font-family: var(--font-titulo);
+    font-family: 'Permanent Marker', cursive;
     font-size: 20px;
-    letter-spacing: 0.5px;
 }
- 
-/* DADOS: enlace "guia de juego" (.guia-dados). CARTAS: lo mismo (.guia-cartas). */
+
+/* Botón amarillo "Guía de juego" (dados y cartas) y "Ver puntajes" (trivia) */
 .guia-dados,
 .guia-cartas {
-    margin-top: 24px;   
+    margin-top: 24px;
     margin-bottom: 8px;
 }
+
 .guia-dados a,
 .guia-cartas a {
     display: inline-block;
-    font-family: var(--font-texto);
     font-size: 15px;
     font-weight: 700;
-    color: var(--tinta);
-    background: var(--amarillo);
-    border: var(--borde);
+    color: #1d2a4d;
+    background-color: #d5da84;
+    border: 2px solid #1d2a4d;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
     border-radius: 10px;
-    box-shadow: 3px 3px 0 var(--tinta);
     padding: 10px 18px;
     text-decoration: none;
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
-/* El botón "Guía de juego" se levanta al pasar el mouse */
+
 .guia-dados a:hover,
 .guia-cartas a:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0 var(--tinta);
+    background-color: #dd88b7;
 }
-/* El botón "Guía de juego" se hunde al hacer clic */
+
 .guia-dados a:active,
 .guia-cartas a:active {
-    transform: translate(3px, 3px);
-    box-shadow: 0 0 0 var(--tinta);
+    position: relative;
+    top: 2px;
 }
+
+/* Pie de las páginas internas: placa amarilla centrada, igual al del index */
 .site-footer {
-    width: fit-content;                
-    margin: 32px auto 0;                
-    padding: 10px 18px;                 
-    background: var(--amarillo);        
-    color: var(--tinta);                
-    border: var(--borde);               
-    border-radius: 10px;                
-    box-shadow: 3px 3px 0 var(--tinta);
-    font-size: 15px;                    
+    width: 200px;
+    margin: 32px auto 0;
+    padding: 10px 18px;
+    background-color: #d5da84;
+    color: #1d2a4d;
+    border: 2px solid #1d2a4d;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-radius: 10px;
+    font-size: 15px;
     font-weight: 500;
 }
+
+
 /* =========================================================
-   dados.html
+   DADOS (dados.html)
    ========================================================= */
- /* DADOS: la fila "Turno: Vos" / "Acumulado del turno: 0". */
+
+/* La fila "Turno: Vos" / "Acumulado del turno: 0" */
 .turn-info {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 8px;
     font-size: 14px;
 }
-/* DADOS: el nombre del jugador y el número acumulado (#turnLabel y #turnScoreLabel). */
-.turn-info b {
-    font-family: var(--font-titulo);
+
+.turn-info strong {
+    font-family: 'Permanent Marker', cursive;
     font-weight: 400;
     font-size: 17px;
 }
-/* DADOS: la fila donde aparecen los dados (#diceRow). */
+
+/* La fila donde aparecen los dados */
 .dice-row {
     display: flex;
-    gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
     margin: 16px 0;
-    min-height: 60px;
+    min-height: 64px;
 }
-/* DADOS: cada dado (lo crea dados.js). Es una grilla de 3x3 para ubicar los puntos. */
+
+/* Cada dado (lo crea dados.js) */
 .die {
     width: 54px;
     height: 54px;
+    margin: 5px;
+    background-color: #ffffff;
+    border: 2px solid #1d2a4d;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
     border-radius: 10px;
-    border: var(--borde);
-    background: #ffffff;
-    box-shadow: 3px 3px 0 var(--tinta);
     cursor: pointer;
-    user-select: none;
+}
+
+/* Dado elegido por el jugador: amarillo y un poco más arriba */
+.die.selected {
+    background-color: #d5da84;
+    border-color: #c2624e;
+    position: relative;
+    top: -5px;
+}
+
+/* Dados bloqueados durante el turno de la computadora */
+.die.locked {
+    cursor: default;
+    border-color: #96aad2;
+}
+
+/* ---------------------------------------------------------
+   Puntos de los dados: cada dado es una grilla de 3 filas y 3 columnas,
+   y dados.js ubica cada punto en una celda según el número que salió.
+   --------------------------------------------------------- */
+.die {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     padding: 8px;
-    transition: transform 0.1s ease;
 }
-/* DADOS: cada punto negro del dado. */
+
 .die .pip {
     width: 9px;
     height: 9px;
     border-radius: 50%;
-    background: var(--tinta);
+    background-color: #1d2a4d;
     align-self: center;
     justify-self: center;
 }
-/* DADOS: dado elegido por el jugador (amarillo e inclinado). */
-.die.selected {
-    background: var(--amarillo);
-    transform: translateY(-5px) rotate(-4deg);
+
+.die.selected .pip {
+    background-color: #c2624e;
 }
-/* DADOS: los puntos del dado elegido se ven rojos. */
-.die.selected .pip { background: var(--rojo); }
- 
-/* DADOS: dados bloqueados durante el turno de la computadora. */
-.die.locked {
-    opacity: 0.5;
-    cursor: default;
-    box-shadow: none;
+/* --------------------------------------------------------- */
+
+/* El botón "Jugar de nuevo": oculto hasta que termina la partida.
+   dados.js lo muestra cambiando su style.display */
+#btnRestart {
+    display: none;
+    margin-top: 12px;
 }
-/* DADOS: el botón "Jugar de nuevo" que aparece al terminar la partida. */
-#btnRestart { margin-top: 12px; }
- 
- 
+
+
 /* =========================================================
-   cartas.html
+   CARTAS (cartas.html)
    ========================================================= */
- /* CARTAS: cada zona de mano (la del Dealer y la tuya). */
+
+/* Cada zona de mano (la del Dealer y la tuya) */
 .hand-block {
     padding-bottom: 14px;
     margin-bottom: 14px;
-    border-bottom: 2px dashed var(--celeste);
+    border-bottom: 2px dashed #96aad2;
 }
-/* CARTAS: los textos "Dealer" y "Vos". */
+
+/* Los textos "Dealer" y "Vos" */
 .hand-label {
     font-weight: 700;
     margin: 0;
 }
-/* CARTAS: el total de puntos de cada mano (#dealerTotal y #playerTotal). */
+
+/* El total de puntos de cada mano */
 .hand-total {
-    font-family: var(--font-titulo);
+    font-family: 'Permanent Marker', cursive;
     font-size: 26px;
     margin: 0 0 8px;
 }
-/* CARTAS: la fila donde se ubican las cartas (#dealerHand y #playerHand). */
+
+/* La fila donde se ubican las cartas */
 .hand {
     display: flex;
-    gap: 8px;
     justify-content: center;
     flex-wrap: wrap;
-    min-height: 88px;
+    min-height: 90px;
 }
- 
-/* Cartas de juego que crea script.js */
+
+/* Cada carta (la crea cartas.js) */
 .hand .card {
     position: relative;
     width: 60px;
     height: 86px;
-    background: #ffffff;
-    border: var(--borde);
+    margin: 4px;
+    background-color: #ffffff;
+    border: 2px solid #1d2a4d;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
     border-radius: 8px;
-    box-shadow: 3px 3px 0 var(--tinta);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
 }
-/* CARTAS: color del palo. Rojo para ♥ ♦ y azul oscuro para ♠ ♣. */
-.hand .card.red   { color: var(--rojo); }
-.hand .card.black { color: var(--tinta); }
- /* CARTAS: el símbolo del palo en el centro de la carta. */
-.hand .card .suit { font-size: 26px; }
- /* CARTAS: el número o letra en las esquinas de la carta. */
+
+/* Color del palo: rojo para corazones y diamantes, azul oscuro para picas y tréboles */
+.hand .card.red {
+    color: #c2624e;
+}
+
+.hand .card.black {
+    color: #1d2a4d;
+}
+
+/* El símbolo del palo en el centro */
+.hand .card .suit {
+    font-size: 26px;
+}
+
+/* El número o letra en las esquinas */
 .hand .card .rank-top,
 .hand .card .rank-bottom {
     position: absolute;
     font-size: 12px;
     line-height: 1;
 }
- /* CARTAS: esquina superior izquierda y esquina inferior derecha (dada vuelta). */
-.hand .card .rank-top    { top: 5px; left: 5px; }
-.hand .card .rank-bottom { bottom: 5px; right: 5px; transform: rotate(180deg); }
- 
-/* Carta tapada del dealer */
-.hand .card.hidden {
-    background:
-        repeating-linear-gradient(45deg, var(--rosa) 0 6px, var(--celeste) 6px 12px);
+
+.hand .card .rank-top {
+    top: 5px;
+    left: 5px;
 }
- 
-/* As clickeable */
+
+.hand .card .rank-bottom {
+    bottom: 5px;
+    right: 5px;
+}
+
+/* La carta tapada del dealer */
+.hand .card.hidden {
+    background-color: #dd88b7;
+}
+
+/* Los ases que se pueden tocar para elegir si valen 1 u 11 */
 .hand .card.ace {
     cursor: pointer;
-    outline: 3px solid var(--rosa);
-    outline-offset: 2px;
+    border-color: #dd88b7;
 }
-/* CARTAS: el texto "Tocá un As para elegir si vale 1 u 11" (#aceHint). */
+
+/* El texto "Tocá un As para elegir si vale 1 u 11" */
 .ace-hint {
     font-size: 13px;
-    color: var(--sub);
+    color: #4a5577;
     margin: 10px 0 0;
 }
-/* CARTAS: la fila con el campo de apuesta y el botón "Apostar" (#betRow). */
+
+/* La fila con el campo de apuesta y el botón "Apostar" */
 .bet-row {
     display: flex;
-    gap: 10px;
     align-items: center;
 }
+
+
 /* =========================================================
-   api.html
+   TRIVIA (api.html)
    ========================================================= */
-/* API: el panel con los dos puntajes (Vos / Computadora) lado a lado. */
+
+/* Los dos puntajes lado a lado */
 .mini-scores {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    display: flex;
 }
-/* API: cada puntaje de la trivia. */
+
 .mini-score {
+    flex: 1;
+    margin: 0 6px;
     text-align: center;
-    background: var(--accent-bg);
-    border: var(--borde);
+    background-color: #d5da84;
+    border: 2px solid #1d2a4d;
     border-radius: 10px;
     padding: 10px;
 }
-/* API: el texto chico arriba de la pregunta ("Cargando preguntas...", número de pregunta). */
+
+/* El texto chico arriba de la pregunta (número de pregunta, categoría y tiempo) */
 .question-meta {
     font-size: 13px;
     font-weight: 500;
-    color: var(--sub);
+    color: #4a5577;
 }
-/* API: la pregunta de la trivia (#questionText). */
+
+/* La pregunta */
 .question-text {
     font-size: 19px;
     font-weight: 500;
     min-height: 60px;
     margin-bottom: 16px;
 }
-/* API: los botones "Verdadero" y "Falso" ocupan el mismo ancho. */
-.answer-btn { flex: 1; }
-/* API: el texto que dice si acertaste o no (#feedback). */
+
+/* Las opciones de respuesta, una debajo de la otra */
+#answers {
+    flex-direction: column;
+}
+
+#answers .answer-btn {
+    width: 100%;
+    margin: 4px 0;
+    text-align: left;
+}
+
+/* La opción correcta se marca en amarillo y la elegida mal en rojo */
+#answers .answer-btn.correct {
+    background-color: #d5da84;
+}
+
+#answers .answer-btn.wrong {
+    background-color: #c2624e;
+    color: #ffffff;
+}
+
+/* El texto que dice si acertaste o no */
 .feedback {
     min-height: 24px;
     margin-top: 14px;
     font-size: 15px;
     font-weight: 500;
 }
- 
+
+#feedback.ok {
+    color: #1d2a4d;
+}
+
+#feedback.fail {
+    color: #c2624e;
+}
+
+
 /* =========================================================
-   instrucciones
+   GUÍAS (instdados.html e instcartas.html)
    ========================================================= */
- /* el contenedor del botón "Volver al juego". */
+
+/* Contenedor del botón "Volver al juego" */
 div.back-link {
     margin: 18px 0 4px;
 }
-/*el panel con las instrucciones, alineado a la izquierda. */
+
+/* Panel con las instrucciones */
 .guia-panel {
     text-align: left;
     max-width: 680px;
     margin: 0 auto;
 }
-/*los párrafos de las instrucciones. */
+
 .guia-panel p {
     margin-bottom: 12px;
 }
- 
+
+
 /* =========================================================
-   puntajes.html
+   PUNTAJES (puntajes.html)
    ========================================================= */
- 
-/* PUNTAJES: fondo azul oscuro (la "tinta" de la paleta) y textos en amarillo */
-body.pagina-puntajes {
-    --page-bg: var(--tinta);
-    --page-ink: var(--amarillo);
-}
- 
-/* PUNTAJES: las líneas del menú y del pie en amarillo, para que se vean sobre el fondo oscuro */
-.pagina-puntajes .nav,
-.pagina-puntajes .site-footer {
-    border-color: var(--amarillo);
-}
- 
-/* PUNTAJES: el <main> no usa el ancho ni el relleno del index */
+
+/* El <main> no usa el ancho ni el relleno del index */
 main.puntajes-main {
     max-width: none;
     margin: 0;
     padding: 0;
 }
- 
-/* PUNTAJES: el texto de abajo del título */
+
+/* El texto de abajo del título */
 .puntajes-intro {
-    color: var(--page-ink);
     margin: -16px 0 24px;
 }
- 
-/* PUNTAJES: las 3 tarjetas de récords, una por juego */
+
+/* Las 3 tarjetas de récords. En pantallas chicas bajan solas */
 .records-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -11px;
     text-align: left;
 }
- 
-/* PUNTAJES: cada tarjeta lleva arriba una franja del color de su juego */
+
+/* Cada tarjeta, con una franja arriba del color de su juego */
 .records-card {
-    border-top: 10px solid var(--accent);
+    flex: 1;
+    min-width: 240px;
+    margin: 0 11px 22px;
+    border-top-width: 10px;
 }
- 
-/* PUNTAJES: el nombre del juego en la tarjeta */
+
+.records-card.dados {
+    border-top-color: #c2624e;
+}
+
+.records-card.cartas {
+    border-top-color: #496ebc;
+}
+
+.records-card.trivia {
+    border-top-color: #dd88b7;
+}
+
+/* Nombre del juego en la tarjeta */
 .records-card h2 {
     font-size: 22px;
     margin: 0 0 10px;
 }
- 
-/* PUNTAJES: el mejor puntaje de cada juego, en grande */
+
+/* El mejor puntaje, en grande */
 .records-best {
-    font-family: var(--font-titulo);
+    font-family: 'Permanent Marker', cursive;
     font-size: 28px;
     margin: 0 0 12px;
 }
- 
-/* PUNTAJES: la tabla con los 5 mejores de cada juego */
-.records-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-}
- 
-.records-table th {
-    text-align: left;
-    font-weight: 700;
-    padding: 6px 4px;
-    border-bottom: var(--borde);
-}
- 
-.records-table td {
-    padding: 7px 4px;
-    border-bottom: 1px dashed var(--celeste);
-}
- 
-/* PUNTAJES: la primera fila (el récord) resaltada con el color de fondo del juego */
-.records-table tbody tr:first-child {
-    background: var(--accent-bg);
-    font-weight: 700;
-}
- 
-/* PUNTAJES: mensaje cuando un juego todavía no tiene partidas */
-.records-vacio {
-    color: var(--sub);
+
+/* La lista numerada con los 5 mejores */
+.records-list {
+    margin: 0;
+    padding-left: 22px;
     font-size: 14px;
 }
- 
-/* PUNTAJES: el botón "Borrar todos los récords" */
+
+.records-list li {
+    padding: 7px 4px;
+    border-bottom: 1px dashed #96aad2;
+}
+
+/* El récord (primera partida), resaltado con el color de su juego */
+.records-list li.records-mejor {
+    font-weight: 700;
+}
+
+.records-card.dados .records-mejor {
+    background-color: #d5da84;
+}
+
+.records-card.cartas .records-mejor {
+    background-color: #96aad2;
+}
+
+.records-card.trivia .records-mejor {
+    background-color: #d5da84;
+}
+
+/* Mensaje cuando un juego todavía no tiene partidas */
+.records-vacio {
+    color: #4a5577;
+    font-size: 14px;
+}
+
+/* El botón "Borrar todos los récords" */
 .records-acciones {
     margin-top: 26px;
 }
- 
-/* PUNTAJES: en pantallas medianas y chicas, las tarjetas van una debajo de la otra */
-@media (max-width: 800px) {
-    .records-grid { grid-template-columns: 1fr; }
-}
- 
-/* =========================================================
-   RESPONSIVE Y ACCESIBILIDAD
-   ========================================================= */
-/* CELULARES Y TABLETS CHICAS: DADOS y API pasan de 2 columnas a 1. */
-@media (max-width: 640px) {
-    .columns { grid-template-columns: 1fr; }
-}
-/* CELULARES: INDEX achica las tarjetas de juego.
-   CARTAS: el campo de apuesta y el botón "Apostar" se acomodan en el ancho. */
-@media (max-width: 480px) {
-    .grid { gap: 10px; }
-    .grid .card { padding: 18px 8px; }
-    .icon { width: 42px; height: 42px; font-size: 18px; margin-bottom: 8px; }
-    .grid .card h2 { font-size: 15px; }
-    .grid .card p { font-size: 12px; margin-bottom: 10px; }
-    .btn { padding: 7px 10px; font-size: 13px; }
- 
-    .bet-row { flex-wrap: wrap; }
-    input[type="number"] { flex: 1; }
-}
-/* TODAS LAS PÁGINAS: sin animaciones si la persona las desactivó en su sistema. */
-@media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; }
-}
-
-/* TRIVIA multiple choice: las opciones en columna */
-#answers { flex-direction: column; }
-#answers .answer-btn { width: 100%; text-align: left; }
-#answers .answer-btn.correct { background: var(--amarillo); opacity: 1; }
-#answers .answer-btn.wrong { background: var(--rojo); color: #fff; opacity: 1; }
-#feedback.ok { color: var(--tinta); }
-#feedback.fail { color: var(--rojo); }

@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-        <title>Blackjack</title>
-        <link rel="stylesheet" href="../css/style.css">
-    </head>
-    <body>
-        <div class="wrap">
-        <div class="zona-bar">zona juegos</div>
-        <nav class="nav">
-            <a class="nav-item" href="../index.html">Inicio</a>
-            <a class="nav-item" href="dados.html">10000</a>
-            <a class="nav-item active" href="cartas.html">Blackjack</a>
-            <a class="nav-item" href="api.html">Trivia</a>
-            <a class="nav-item" href="puntajes.html">Puntajes</a> 
-        </nav>
-          
-    <h1>BlackJack - vos vs dealer </h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blackjack</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Rubik:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="pagina-cartas">
+<div class="wrap">
+
+    <div class="zona-bar">zona juegos</div>
+
+    <nav class="nav">
+        <a class="nav-item" href="../index.html">Inicio</a>
+        <a class="nav-item" href="dados.html">10000</a>
+        <a class="nav-item active" href="cartas.html">Blackjack</a>
+        <a class="nav-item" href="api.html">Trivia</a>
+        <a class="nav-item" href="puntajes.html">Puntajes</a>
+        <a class="nav-item" href="integrantes.html">Integrantes</a>
+    </nav>
+
+    <h1>Blackjack - vos vs. dealer</h1>
 
     <div class="scores">
         <div class="score-card active">
@@ -38,36 +42,37 @@
         </div>
 
         <div class="hand-block">
-                <p class="hand-label">Vos</p>
-                <p class="hand-total" id="playerTotal">-</p>
-                <div class="hand" id="playerHand"></div>
-                 <p class="ace-hint is-hidden" id="aceHint">Tocá un As para elegir si vale 1 u 11.</p>
+            <p class="hand-label">Vos</p>
+            <p class="hand-total" id="playerTotal">-</p>
+            <div class="hand" id="playerHand"></div>
+            <p class="ace-hint is-hidden" id="aceHint">Tocá un As para elegir si vale 1 u 11.</p>
         </div>
 
-        <div class="msg" id="msg"> Ingresa tu apuesta para comenzar la mano</div>
-           
+        <div class="msg" id="msg">Ingresá tu apuesta para comenzar la mano.</div>
+
         <div class="bet-row" id="betRow">
-                <label for="betInput" class="visually-hidden">Monto de la apuesta.</label>
-                <input type="number" id="betInput" min="1" value="10">
-                <button type="button" class="primary btn-grow" id="btnApostar">Apostar</button>
-         </div>
-            
+            <label for="betInput" class="visually-hidden">Monto de la apuesta</label>
+            <input type="number" id="betInput" value="10">
+            <button type="button" class="primary btn-grow" id="btnApostar">Apostar</button>
+        </div>
+
         <div class="actions is-hidden" id="playActions">
-                <button type="button" class="primary" id="btnHit">Pedir carta.</button>
-                <button type="button" id="btnStand">Plantarse</button>
+            <button type="button" class="primary" id="btnHit">Pedir carta</button>
+            <button type="button" id="btnStand">Plantarse</button>
         </div>
-     </div>
+    </div>
 
-        <div class="panel">
-            <p class="panel-title">Historial de manos</p>
-            <div id="history" class="history"></div>
-        </div>
+    <div class="panel">
+        <p class="panel-title">Historial de manos</p>
+        <div id="history" class="history"></div>
+    </div>
 
-    <div class="guia-cartas"><a href="../html/instcartas.html">Guía de juego</a></div>
+    <div class="guia-cartas"><a href="instcartas.html">Guía de juego</a></div>
 
-<footer class="site-footer">TP 1 - IG 2026</footer>
+    <footer class="site-footer">TP1 - IG 2026</footer>
 
 </div>
-    <script src="../js/cartas.js"></script>
-    </body>
+<script src="../js/records.js"></script>
+<script src="../js/cartas.js"></script>
+</body>
 </html>

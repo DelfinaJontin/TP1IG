@@ -1,46 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>juegos</title>
-<link rel="stylesheet" href="../TP1IG/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zona juegos</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Rubik:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body class="pagina-index">
-<header>
-  <span>zona juegos</span>
-</header>
-<main>
-  <section class="hero">
-    <h1>Zona de juegos</h1>
-    <p>Tres minijuegos para jugar y aprender: dados, cartas y trivia.</p>
-  </section>
 
-  <div class="grid">
-    <a class="card dados" href="html/dados.html">
-      <div class="icon">🎲</div>
-      <h2>10000 (dados)</h2>
-      <p>Sumá puntos con la suerte de los dados</p>
-      <span class="btn">Jugar</span>
-    </a>
+    <header>
+        <span>zona juegos</span>
+        <nav class="nav">
+            <a class="nav-item active" href="index.html">Inicio</a>
+            <a class="nav-item" href="html/dados.html">10000</a>
+            <a class="nav-item" href="html/cartas.html">Blackjack</a>
+            <a class="nav-item" href="html/api.html">Trivia</a>
+            <a class="nav-item" href="html/puntajes.html">Puntajes</a>
+            <a class="nav-item" href="html/integrantes.html">Integrantes</a>
+        </nav>
+    </header>
 
-    <a class="card cartas" href="html/cartas.html">
-      <div class="icon">🃏</div>
-      <h2>Blackjack (cartas)</h2>
-      <p>Acercate a 21 sin pasarte</p>
-      <span class="btn">Jugar</span>
-    </a>
+    <main>
+        <section class="hero">
+            <h1>Zona de juegos</h1>
+            <p>Tres minijuegos para jugar y aprender: dados, cartas y trivia.</p>
+        </section>
 
-    <a class="card trivia" href="html/api.html">
-      <div class="icon">❓</div>
-      <h2>Trivia</h2>
-      <p>Respondé y sumá aciertos</p>
-      <span class="btn">Jugar</span>
-    </a>
-    
-  </div>
-</main>
-<footer> TP1 — IG 2026</footer>
+        <div class="grid">
+            <a class="card dados" href="html/dados.html">
+                <div class="icon">🎲</div>
+                <h2>10000 (dados)</h2>
+                <p>Sumá puntos con la suerte de los dados</p>
+                <span class="btn">Jugar</span>
+            </a>
+
+            <a class="card cartas" href="html/cartas.html">
+                <div class="icon">🃏</div>
+                <h2>Blackjack (cartas)</h2>
+                <p>Acercate a 21 sin pasarte</p>
+                <span class="btn">Jugar</span>
+            </a>
+
+            <a class="card trivia" href="html/api.html">
+                <div class="icon">❓</div>
+                <h2>Trivia</h2>
+                <p>Respondé y sumá aciertos</p>
+                <span class="btn">Jugar</span>
+            </a>
+        </div>
+    </main>
+
+    <footer>TP1 - IG 2026</footer>
+
 </body>
 </html>
