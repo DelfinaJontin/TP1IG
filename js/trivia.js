@@ -1,5 +1,5 @@
 const API_URL = 'https://opentdb.com/api.php?amount=10&category=11&difficulty=medium&type=multiple&encode=url3986';
-const TIME_PER_QUESTION = 30;/ segundos
+const TIME_PER_QUESTION = 30;// segundos
 
 const state = {
   questions: [],
@@ -212,4 +212,4 @@ function endGame() {
 }
 
 updateScores();
-loadQuestions();
+showStartScreen();
