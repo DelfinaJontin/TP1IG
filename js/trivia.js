@@ -1,5 +1,5 @@
 const API_URL = 'https://opentdb.com/api.php?amount=10&category=11&difficulty=medium&type=multiple&encode=url3986';
-const TIME_PER_QUESTION = 10; // segundos
+const TIME_PER_QUESTION = 30;/ segundos
 
 const state = {
   questions: [],
@@ -32,6 +32,30 @@ function shuffle(arr) {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
+}
+
+function showStartScreen() {
+  els.questionMeta.textContent = 'Preguntas de cine';
+  els.questionText.textContent =
+    `Vas a responder 10 preguntas. Tenés ${TIME_PER_QUESTION} segundos para cada una.`;
+  els.answers.innerHTML = '';
+
+  const btnStart = document.createElement('button');
+  btnStart.type = 'button';
+  btnStart.className = 'answer-btn primary start-btn';
+  btnStart.textContent = 'Iniciar juego';
+  btnStart.addEventListener('click', () => {
+    btnStart.disabled = true;
+    els.questionText.textContent = 'Cargando preguntas...';
+    loadQuestions().then(() => {
+      // si falló la carga, se puede volver a intentar
+      if (!state.questions.length) {
+        btnStart.disabled = false;
+        els.questionText.textContent = 'Probá de nuevo.';
+      }
+    });
+  });
+  els.answers.appendChild(btnStart);
 }
 
 async function loadQuestions() {
