@@ -9,7 +9,7 @@
 // Dirección de la API: 10 preguntas (amount=10), categoría películas (category=11),
 // dificultad media y de opción múltiple
 const API_URL = 'https://opentdb.com/api.php?amount=10&category=11&difficulty=medium&type=multiple';
-const TIME_PER_QUESTION = 10; // segundos por pregunta
+const TIME_PER_QUESTION = 30; // segundos por pregunta
 
 // Estado del juego
 const state = {
